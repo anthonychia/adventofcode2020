@@ -12,4 +12,3 @@ print(sum([ (Counter(password)[letter] >= min) & (Counter(password)[letter] <= m
 # Part 2
 
 print(sum([ (password[pos1-1] == letter) != (password[pos2-1] == letter) for pos1, pos2, letter, password in output ]))
-        
