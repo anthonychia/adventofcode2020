@@ -11,7 +11,6 @@ def gen_whole_matrix(smatrix, slope):
 def check_encountered_trees(matrix, slope):
     matrix = csr_matrix(matrix)
     key_list = np.array(list(matrix.todok().keys()))
-
     return sum([slope[0] * col == slope[1] * row for row, col in key_list])
 
 
@@ -29,7 +28,7 @@ f.close()
 print(check_encountered_trees(gen_whole_matrix(matrix, (1, 3)), (1, 3)))
 
 # Part 2
-slopes =[(1, 1), (1, 3), (1, 5), (1, 7), (2, 1)]
+slopes = [(1, 1), (1, 3), (1, 5), (1, 7), (2, 1)]
 trees = []
 
 for slope in slopes:
@@ -37,6 +36,5 @@ for slope in slopes:
 
 # to prevent numerical overflow
 trees = np.asarray(trees, dtype='int64')
-
 print(np.prod(trees))
 
