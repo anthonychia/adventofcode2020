@@ -31,23 +31,27 @@ passList = []
 for passport in passportList[valid]:
     checks = []
     for key, value in passport.items():
-        print((key, value))
+        # print((key, value))
         if key == 'byr':
-            checks.append((int(value) >= 1920) & (int(value) <= 2002))
+            checks.append(bool(re.search('(19[2-8][0-9]|199[0-9]|200[0-2])', value)))
         elif key == 'iyr':
-            checks.append((int(value) >= 2010) & (int(value) <= 2020))
+            checks.append(bool(re.match('(201[0-9]|2020)', value)))
         elif key == 'eyr':
-            checks.append((int(value) >= 2020) & (int(value) <= 2030))
+            checks.append(bool(re.match('(202[0-9]|2030)', value)))
         elif key == 'hgt':
-            if value[-2:] == 'cm': checks.append((int(value[:-2]) >= 150) & (int(value[:-2]) <= 193))
-            elif value[-2:] == 'in': checks.append((int(value[:-2]) >= 59) & (int(value[:-2]) <= 76))
+            if value[-2:] == 'cm':
+                checks.append((int(value[:-2]) >= 150) & (int(value[:-2]) <= 193))
+            elif value[-2:] == 'in':
+                checks.append((int(value[:-2]) >= 59) & (int(value[:-2]) <= 76))
+            else:
+                checks.append(False)
         elif key == 'hcl':
-            checks.append(bool(re.search('^#[0-9a-f]{6}$', value)))
+            checks.append(bool(re.match('#([0-9]|[a-f]){6}', value)))
         elif key == 'ecl':
-            checks.append(value in ('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'))
+            checks.append(bool(re.match('(amb|blu|brn|gry|grn|hzl|oth)', value)))
         elif key == 'pid':
-            checks.append(all(char.isdigit() for char in value) & (len(value) == 9))
-        print(checks)
+            checks.append(bool(re.match(r'\d{9}(?!\S)', value)))
+        # print(checks)
     passList.append(all(checks))
 
 print(sum(passList))
