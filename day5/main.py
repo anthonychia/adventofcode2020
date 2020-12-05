@@ -41,5 +41,6 @@ for rindex, row in enumerate(seatMatrix):
         myRow = rindex
         for sindex, seat in enumerate(row):
             if seat == 0: mySeat = sindex
+        break
 
 print(myRow*8 + mySeat)
